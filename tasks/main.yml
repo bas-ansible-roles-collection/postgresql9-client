@@ -1,0 +1,6 @@
+---
+# Installs PostgreSQL client tools and required system and python libraries for connecting to PostgreSQL server
+
+- include: register-role.yml
+  tags:
+    - BARC_ROLE_REGISTRATION
