@@ -24,7 +24,7 @@
 - name: determine if postgresql client and libraries are installed from system-only sources - Ubuntu
   command: dpkg -s {{ item }}
   with_items:
-  - postgresql-client-9.3
+  - postgresql-client
   - libpq-dev
   - python-psycopg2
   changed_when: False
