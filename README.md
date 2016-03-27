@@ -12,7 +12,9 @@ Installs client tools and libraries for PostgreSQL
 
 ## Overview
 
-* Installs PostgreSQL client package, plus system packages and python bindings to connect to a PostgreSQL database
+* Installs PostgreSQL client package from system-only sources
+* Installs system packages used by language bindings to connect to PostgreSQL databases from system-only sources
+* Installs Python bindings to connect to PostgreSQL databases from system-only sources
 
 ## Quality Assurance
 
@@ -35,7 +37,25 @@ More information on role requirements is available in the
 
 ## Limitations
 
-* None
+## Limitations
+
+* The PostgreSQL client version varies depending on which operating system is used and if non-system package sources
+are permitted
+
+As the package policy varies between system and non-system package sources, and between operating systems, the version
+of the PostgreSQL tools installed is variable between supported operating systems.
+
+TODO: Clarify situation for each OS.
+
+It is a convention of BARC roles to use the latest version of packages. Where a suitable non-system package source is
+available it will be used. Otherwise system packages will be used. Suitable non-system packages require a reputable,
+maintainer, typically a company or well respected individual. Where non-system packages are used, the variable
+*BARC_use_non_system_package_sources* can be set to `false` to always use system packages if this is needed.
+
+*This limitation is **NOT** considered to be significant. Solutions will **NOT** be actively pursued.*
+*Pull requests addressing this limitation will be considered.*
+
+See [BARC-98](https://jira.ceh.ac.uk/browse/BARC-98) for further details.
 
 More information on role limitations is available in the
 [BARC General Documentation](https://antarctica.hackpad.com/BARC-Overview-and-Policies-SzcHzHvitkt#:h=Role-limitations)
@@ -55,6 +75,36 @@ If you do not want these facts to be set by this role, you **MUST** skip the **B
 
 More information is available in the
 [BARC General Documentation](https://antarctica.hackpad.com/BARC-Overview-and-Policies-SzcHzHvitkt#:h=Role-Manifest)
+
+### PostgreSQL version
+
+Depending on the operating system used, the version of PostgreSQL installed will different, though it will be at least
+PostgreSQL *5.2*, and not greater than the latest PostgreSQL 9 release. The table below hopes to clarify the version
+you can expect:
+
+| Operating System | Non-System Package Sources Permitted | PostgreSQL version | Notes             |
+| ---------------- | ------------------------------------ | ------------------ | ----------------- |
+| Ubuntu           | Yes                                  | -                  | Not yet supported |
+| Ubuntu           | No                                   | *9.3*              | -                 |
+| CentOS           | Yes                                  | -                  | Not yet supported |
+| CentOS           | No                                   | *9.2*              | -                 |
+
+Because the exact version installed cannot be guaranteed by this role, you should be careful if using depending on this
+role in another role or a project that relies on the PostgreSQL client. If any version of the client greater than 9.2
+and less than 10.0, is acceptable this role is suitable, however where you depend on some feature added to minor
+releases (e.g. *9.4*) this role is unsuitable.
+
+This ambiguity is considered a limitation, see the *limitations* section for more information.
+
+### Non-system packages
+
+It is a convention of BARC roles to use the latest version of packages. Where a suitable non-system package source is
+available it will be used. Suitable non-system packages require a reputable, maintainer, typically a company or well
+respected individual. If this is for some reason unsuitable, it is possible to only use system packages by setting the
+*BARC_use_non_system_package_sources* variable to `false`.
+
+Note: As the package policy varies between system and non-system package sources, and between operating systems, the
+version of installed packages is variable.
 
 ### Typical playbook
 
@@ -103,7 +153,7 @@ More information is available in the
     * `false`
 * Values **SHOULD NOT** be quoted to prevent Ansible coercing values to a string
 * Where not specified, a value of true will be assumed
-* Default: `true`
+* Default: `false`
 
 ## Developing
 

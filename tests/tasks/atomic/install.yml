@@ -1,0 +1,47 @@
+---
+# Ensure PostgreSQL client tools and libraries are installed correctly
+
+- name: determine if postgresql client and libraries are installed - CentOS
+  command: rpm -qa
+  when: ansible_distribution == "CentOS"
+  changed_when: False
+  register: postgresql9_client_test_fact_nginx_package_is_installed_centos
+
+# If using non-system sources (preferred)
+
+# TODO
+
+# If using system-sources only
+
+- name: assert postgresql client and libraries are installed from system-only sources - CentOS
+  assert:
+    that:
+      - "'postgresql' in postgresql9_client_test_fact_nginx_package_is_installed_centos.stdout"
+      - "'python-psycopg2' in postgresql9_client_test_fact_nginx_package_is_installed_centos.stdout"
+  when: ansible_distribution == "CentOS" and
+    (BARC_use_non_system_package_sources == false or BARC_use_non_system_package_sources == 'false')
+
+- name: determine if postgresql client and libraries are installed from system-only sources - Ubuntu
+  command: dpkg -s {{ item }}
+  with_items:
+  - postgresql-client-9.3
+  - libpq-dev
+  - python-psycopg2
+  changed_when: False
+  when: ansible_distribution == "Ubuntu" and
+    (BARC_use_non_system_package_sources == false or BARC_use_non_system_package_sources == 'false')
+  register: postgresql9_client_test_fact_nginx_package_is_installed_system_only_ubuntu
+- name: assert postgresql client and libraries are installed from system-only sources - Ubuntu
+  assert:
+    that:
+      - "'install ok installed' in item.stdout"
+  with_items: postgresql9_client_test_fact_nginx_package_is_installed_system_only_ubuntu.results
+  when: ansible_distribution == "Ubuntu" and
+    (BARC_use_non_system_package_sources == false or BARC_use_non_system_package_sources == 'false')
+
+# Applies to both non-system and system-only
+
+- name: determine if psql is available
+  command: psql --version
+  changed_when: False
+  register: postgresql9_client_fact_psql_is_available
