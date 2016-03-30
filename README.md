@@ -37,15 +37,13 @@ More information on role requirements is available in the
 
 ## Limitations
 
-## Limitations
-
 * The PostgreSQL client version varies depending on which operating system is used and if non-system package sources
 are permitted
 
 As the package policy varies between system and non-system package sources, and between operating systems, the version
 of the PostgreSQL tools installed is variable between supported operating systems.
 
-TODO: Clarify situation for each OS.
+> TODO: Clarify situation for each OS.
 
 It is a convention of BARC roles to use the latest version of packages. Where a suitable non-system package source is
 available it will be used. Otherwise system packages will be used. Suitable non-system packages require a reputable,
@@ -79,8 +77,8 @@ More information is available in the
 ### PostgreSQL version
 
 Depending on the operating system used, the version of PostgreSQL installed will different, though it will be at least
-PostgreSQL *5.2*, and not greater than the latest PostgreSQL 9 release. The table below hopes to clarify the version
-you can expect:
+PostgreSQL *9.2*, and not greater than the last PostgreSQL 9 series release. The table below hopes to clarify the
+version you can expect:
 
 | Operating System | Non-System Package Sources Permitted | PostgreSQL version | Notes             |
 | ---------------- | ------------------------------------ | ------------------ | ----------------- |
