@@ -1,0 +1,5 @@
+---
+# These variables override those defined by roles
+
+# PostgreSQL specific variables
+postgresql9_server_listen_address: "{{ ansible_default_ipv4.address }}"
