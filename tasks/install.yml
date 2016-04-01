@@ -1,32 +1,8 @@
 ---
 # Install PostgreSQL client tools and libraries
 
-# If using non-system sources (preferred)
+- include: install-CentOS.yml
+  when: ansible_distribution == "CentOS"
 
-# TODO
-
-# If using system-sources only
-
-- name: install postgresql client and related libraries from system-only sources - CentOS
-  yum:
-             pkg={{ item }}
-    update_cache=yes
-           state=present
-  with_items:
-    - postgresql
-    - python-psycopg2
-  when: ansible_distribution == "CentOS" and
-    (BARC_use_non_system_package_sources == false or BARC_use_non_system_package_sources == 'false')
-
-- name: install postgresql client and related libraries from system-only sources  - Ubuntu
-  apt:
-                 pkg={{ item }}
-    cache_valid_time=3600
-        update_cache=yes
-               state=present
-  with_items:
-  - postgresql-client
-  - libpq-dev
-  - python-psycopg2
-  when: ansible_distribution == "Ubuntu" and
-    (BARC_use_non_system_package_sources == false or BARC_use_non_system_package_sources == 'False')
+- include: install-Ubuntu.yml
+  when: ansible_distribution == "Ubuntu"
