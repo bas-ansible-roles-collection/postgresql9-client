@@ -27,5 +27,4 @@
 # These tests ensure overall processes can be completed to give a valid result
 # E.g. checking a web-server serves a web-page ensures the relevant packages and configuration files work together
 
-- include: functionality/client-connection.yml
 - include: functionality/barc-manifest.yml

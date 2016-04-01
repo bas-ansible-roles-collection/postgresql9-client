@@ -8,7 +8,6 @@
   tasks:
     - include: ../tasks/functionality/instance-setup.yml
 
-
 - name: run role tests
   hosts: project--postgresql9-client:&env--test-local
   remote_user: "{{ privileged_remote_user }}"
@@ -17,3 +16,4 @@
     - ../../../postgresql9-client
   tasks:
     - include: ../tasks/main.yml
+    - include: ../tasks/functionality/client-connection.yml
