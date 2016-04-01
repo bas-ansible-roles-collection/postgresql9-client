@@ -43,7 +43,8 @@ are permitted
 As the package policy varies between system and non-system package sources, and between operating systems, the version
 of the PostgreSQL tools installed is variable between supported operating systems.
 
-> TODO: Clarify situation for each OS.
+For Ubuntu and CentOS machines, a non-system APT package is installed resulting in more recent versions of PostgreSQL
+to be installed.
 
 It is a convention of BARC roles to use the latest version of packages. Where a suitable non-system package source is
 available it will be used. Otherwise system packages will be used. Suitable non-system packages require a reputable,
@@ -80,12 +81,12 @@ Depending on the operating system used, the version of PostgreSQL installed will
 PostgreSQL *9.2*, and not greater than the last PostgreSQL 9 series release. The table below hopes to clarify the
 version you can expect:
 
-| Operating System | Non-System Package Sources Permitted | PostgreSQL version | Notes             |
-| ---------------- | ------------------------------------ | ------------------ | ----------------- |
-| Ubuntu           | Yes                                  | -                  | Not yet supported |
-| Ubuntu           | No                                   | *9.3*              | -                 |
-| CentOS           | Yes                                  | -                  | Not yet supported |
-| CentOS           | No                                   | *9.2*              | -                 |
+| Operating System | Non-System Package Sources Permitted | PostgreSQL version | Notes |
+| ---------------- | ------------------------------------ | ------------------ | ----- |
+| Ubuntu           | Yes                                  | *9.5*              | -     |
+| Ubuntu           | No                                   | *9.3*              | -     |
+| CentOS           | Yes                                  | *9.5*              | -     |
+| CentOS           | No                                   | *9.2*              | -     |
 
 Because the exact version installed cannot be guaranteed by this role, you should be careful if using depending on this
 role in another role or a project that relies on the PostgreSQL client. If any version of the client greater than 9.2
