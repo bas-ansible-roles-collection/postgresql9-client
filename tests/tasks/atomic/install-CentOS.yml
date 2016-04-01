@@ -1,0 +1,25 @@
+---
+# Ensure PostgreSQL client and related libraries installed correctly
+
+- name: determine if postgresql client and related libraries are installed - CentOS
+  command: rpm -qa
+  changed_when: False
+  register: postgresql9_client_test_fact_postgresql_package_is_installed_centos
+
+# If using non-system sources (preferred)
+
+- name: assert postgresql client and related libraries are installed from non-system sources - CentOS
+  assert:
+    that:
+      - "'postgresql95' in postgresql9_client_test_fact_postgresql_package_is_installed_centos.stdout"
+      - "'python-psycopg2' in postgresql9_client_test_fact_postgresql_package_is_installed_centos.stdout"
+  when: BARC_use_non_system_package_sources == true or BARC_use_non_system_package_sources == 'True'
+
+# If using system-sources only
+
+- name: assert postgresql client and related libraries are installed from system only sources - CentOS
+  assert:
+    that:
+      - "'postgresql' in postgresql9_client_test_fact_postgresql_package_is_installed_centos.stdout"
+      - "'python-psycopg2' in postgresql9_client_test_fact_postgresql_package_is_installed_centos.stdout"
+  when: BARC_use_non_system_package_sources == false or BARC_use_non_system_package_sources == 'False'

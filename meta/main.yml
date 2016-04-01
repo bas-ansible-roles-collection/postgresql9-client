@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: Felix Fennell
-  description: £ROLE-ONE-LINE-DESCRIPTION
+  description: Installs client tools and libraries for PostgreSQL
   company: British Antarctic Survey
 
   issue_tracker_url: https://jira.ceh.ac.uk/browse/BARC
@@ -18,5 +18,6 @@ galaxy_info:
 
   galaxy_tags:
   - system
+  - database
 
 dependencies: []

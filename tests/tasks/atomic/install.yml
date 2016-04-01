@@ -1,0 +1,13 @@
+---
+# Ensure PostgreSQL client and related libraries installed correctly
+
+- include: install-CentOS.yml
+  when: ansible_distribution == "CentOS"
+
+- include: install-Ubuntu.yml
+  when: ansible_distribution == "Ubuntu"
+
+- name: determine if psql is available
+  command: psql --version
+  changed_when: False
+  register: postgresql9_client_fact_psql_is_available

@@ -1,5 +1,5 @@
 ---
-# Tests ...
+# Tests PostgreSQL databases can be connected to using PostgreSQL client tools
 
 # Flush handlers
 #
@@ -19,6 +19,7 @@
 # These tests mirror individual tasks to ensure they execute correctly
 # E.g. creating a user, installing the right package or generating a valid configuration file
 
+- include: atomic/install.yml
 - include: atomic/register-role.yml
 
 # Functionality tests

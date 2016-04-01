@@ -1,5 +1,8 @@
 ---
 # These variables override those defined by roles
 
-# BAS Systems Inventory variables
-bas_systems_inventory_instance_environment: testing-local
+# PostgreSQL specific variables
+postgresql9_server_test_testing_vagrant_role_password: "password"
+
+# Testing specific variables
+postgresql9_client_test_postgresql_server_instance: "{{ hostvars['postgresql9-client-test-postgresql-instance.v.m']['ansible_default_ipv4']['address'] }}"

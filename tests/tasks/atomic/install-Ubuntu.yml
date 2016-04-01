@@ -1,0 +1,38 @@
+---
+# Ensure PostgreSQL client and related libraries are installed correctly
+
+# If using non-system sources (preferred)
+
+- name: determine if postgresql client and libraries are installed from system-only sources - Ubuntu
+  command: dpkg -s {{ item }}
+  with_items:
+    - postgresql-client-9.4
+    - python-psycopg2
+    - libpq-dev
+  changed_when: False
+  when: BARC_use_non_system_package_sources == true or BARC_use_non_system_package_sources == 'True'
+  register: postgresql9_client_test_fact_postgresql_package_is_installed_system_only_ubuntu
+- name: assert postgresql client and libraries are installed from system-only sources - Ubuntu
+  assert:
+    that:
+      - "'install ok installed' in item.stdout"
+  with_items: postgresql9_client_test_fact_postgresql_package_is_installed_system_only_ubuntu.results
+  when: BARC_use_non_system_package_sources == true or BARC_use_non_system_package_sources == 'True'
+
+# If using system-sources only
+
+- name: determine if postgresql client and libraries are installed from system-only sources - Ubuntu
+  command: dpkg -s {{ item }}
+  with_items:
+    - postgresql-client
+    - libpq-dev
+    - python-psycopg2
+  changed_when: False
+  when: BARC_use_non_system_package_sources == false or BARC_use_non_system_package_sources == 'False'
+  register: postgresql9_client_test_fact_postgresql_package_is_installed_system_only_ubuntu
+- name: assert postgresql client and libraries are installed from system-only sources - Ubuntu
+  assert:
+    that:
+      - "'install ok installed' in item.stdout"
+  with_items: postgresql9_client_test_fact_postgresql_package_is_installed_system_only_ubuntu.results
+  when: BARC_use_non_system_package_sources == false or BARC_use_non_system_package_sources == 'False'

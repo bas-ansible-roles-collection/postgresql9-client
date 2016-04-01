@@ -1,0 +1,8 @@
+---
+# Tests a PostgreSQL client can communicate with a remote PostgreSQL server
+
+- name: test connecting to remote postgresql instance
+  command: "psql -h {{ postgresql9_client_test_postgresql_server_instance }} -c 'SHOW SERVER_VERSION'"
+  environment:
+    PGPASSWORD: "{{ postgresql9_server_test_testing_vagrant_role_password }}"
+  become: no

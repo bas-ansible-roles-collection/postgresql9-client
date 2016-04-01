@@ -1,5 +1,10 @@
 ---
-# ...
+# Installs PostgreSQL client tools and required system and python libraries for connecting to PostgreSQL server
+
+- include: install.yml
+  tags:
+    - BARC_INSTALL
+    - BARC_INSTALL_PACKAGES
 
 - include: register-role.yml
   tags:
